@@ -1,2 +1,5 @@
-# hands_on_ai_for_science
-Lectures and homework for the minicourse on August 12-14
+# Hands-On AI for Science
+
+This repository contains lectures and in-class work problems for the **Hands-On AI for Science** minicourse that will be held August 12-14, 2026.
+
+
