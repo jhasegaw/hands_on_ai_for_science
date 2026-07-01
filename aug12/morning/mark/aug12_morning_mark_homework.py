@@ -1,6 +1,5 @@
 '''
-This homework defines one method, called "arithmetic".
-that method, type `help homework2.arithmetic`.
+This homework defines two methods, called "arithmetic" and "words2characters".
 '''
 
 def arithmetic(x, y):
