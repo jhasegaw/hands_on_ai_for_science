@@ -7,8 +7,8 @@ This repository contains lectures and in-class work problems for the **Hands-On 
 
 Attendees will be introduced to scientific computing using Python. The materials will focus on the mathematical and computational fundamentals necessary to understand how basic neural networks are built.
 
-* 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12am_python.ipynb">Installing python, opening it, and using it as a calculator</a>
-* 11:00 - 12:00 Containers: lists, tuples, and dictionaries
+* 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12am_python.ipynb">Installing python, opening it, and using the `if` statement</a>
+* 11:00 - 12:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12am_containers.ipynb">Loops, lists, tuples, and dictionaries</a>
 * 12:00 - 1:00 Lunch
 * 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12pm_numpy.ipynb">Numpy and Matplotlib</a>
 * 2:00 - 3:00 Scipy
