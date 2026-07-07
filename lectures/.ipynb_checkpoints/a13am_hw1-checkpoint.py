@@ -1,6 +1,20 @@
 import numpy as np
 import random
 
+
+def sigma(z):
+    '''
+    Compute the logistic sigmoid, 1/(1+exp(-z)), for a real number z or numpy array.
+    Please use this function as the logistic sigmoid in the gradient function!
+
+    @param:
+    z (float) - any real number or numpy array
+
+    @return:
+    p (float) - real number between 0 and 1, or numpy array, containing sigma(z)
+    '''
+    return 1/(1+np.exp(-z))
+
 def initialize(data, dim):
     '''
     Initialize embeddings for all distinct words in the input data.
@@ -17,7 +31,15 @@ def initialize(data, dim):
     @return:
     embedding = a dictionary, embedding[w] = numpy array of length==dim 
     '''
-    raise RuntimeError("You need to write this part!")
+    # raise RuntimeError("You need to write this part!")
+    embedding = { w:np.zeros(dim) for w in data }
+    N = len(embedding)
+    for n,w in enumerate(embedding.keys()):
+        embedding[w] = np.zeros(dim)
+        for d in range(0,dim,2):
+            embedding[w][d] = np.cos(n*d*np.pi/N)
+            embedding[w][d+1] = np.sin(n*d*np.pi/N)
+    return embedding
 
 def negativegradient(embedding, data, t):
     '''
@@ -34,7 +56,18 @@ def negativegradient(embedding, data, t):
     @return:
     d (numpy array) - update direction for the embedding of word data[t]
     '''
-    raise RuntimeError("You need to write this part!")
+    #raise RuntimeError("You need to write this part!")
+    w = embedding[data[t]]
+    d = np.zeros(len(w))
+    for c in range(max(0,t-3),min(len(data),t+4)):
+        if c != 0:
+            v = embedding[data[c]]
+            s = 1/(1+np.exp(-np.dot(w,v)))
+            d += (1-s)*v / 6
+    for v in embedding.values():
+        s = 1/(1+np.exp(-np.dot(w,v)))
+        d -= s*v/9
+    return d
 
 def sgd(embedding, data, learning_rate, num_iters):
     '''
@@ -52,6 +85,10 @@ def sgd(embedding, data, learning_rate, num_iters):
     @return:
     embedding - the updated embeddings
     '''
-    raise RuntimeError("You need to write this part!")
-
+    #raise RuntimeError("You need to write this part!")
+    for iter in range(num_iters):
+        t = random.randrange(len(data))
+        d = negativegradient(embedding, data, t)
+        embedding[data[t]] += learning_rate*d
+    return embedding
 
