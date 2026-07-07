@@ -7,7 +7,7 @@ This repository contains lectures and in-class work problems for the **Hands-On 
 
 Attendees will be introduced to scientific computing using Python. The materials will focus on the mathematical and computational fundamentals necessary to understand how basic neural networks are built.
 
-* 10:00 - 11:00 Installing and using it as a calculator
+* 10:00 - 11:00 Installing python, opening it, and using it as a calculator
 * 11:00 - 12:00 Containers: lists, tuples, and dictionaries
 * 12:00 - 1:00 Lunch
 * 1:00 - 2:00 Numpy and Matplotlib
