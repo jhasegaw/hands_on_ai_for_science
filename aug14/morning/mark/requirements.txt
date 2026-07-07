@@ -1,5 +1,0 @@
-gradescope-utils>=0.2.7
-numpy>=1.15
-torch>=2.0
-matplotlib>=3.0
-tqdm>=4.0

@@ -1,3 +1,0 @@
-numpy
-gradescope-utils
-matplotlib
