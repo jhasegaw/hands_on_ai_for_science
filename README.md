@@ -10,25 +10,25 @@ Attendees will be introduced to scientific computing using Python. The materials
 * 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12am_python.ipynb">Installing python, opening it, and using it as a calculator</a>
 * 11:00 - 12:00 Containers: lists, tuples, and dictionaries
 * 12:00 - 1:00 Lunch
-* 1:00 - 2:00 Numpy and Matplotlib
+* 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12pm_numpy.ipynb">Numpy and Matplotlib</a>
 * 2:00 - 3:00 Scipy
 
 # Aug 13: Architectures
 
 Leveraging their understanding of fundamentals, attendees will work with the core objects of Pytorch, a Python package for deep learning. Topics will include basic architectures, like multilayer perceptrons, convolutional neural networks, and transformers, as well as model training and optimization.
 
-* 10:00 - 11:00 Lexical embeddings for neural networks
+* 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a13am_word2vec.ipynb">Lexical embeddings for neural networks</a>
 * 11:00 - 12:00 Introduction to pytorch
 * 12:00 - 1:00 Lunch
-* 1:00 - 2:00 Back-propagation
+* 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a13pm_backprop.ipynb">Back-propagation</a>
 * 2:00 - 3:00 Training a deep network in pytorch
 
 # Aug 14: Foundation models
 
 Complex deep learning architectures trained on enormous amounts of data have produced foundation models, such as ChatGPT for language and the Segment Anything Model for computer vision, that have achieved extraordinary results in scientific research. Attendees will learn to fine-tune such foundation models to design custom pipelines for their own work with the help of code generation tools.
 
-* 10:00 - 11:00 Transformer
+* 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a14am_transformer.ipynb">Transformer</a>
 * 11:00 - 12:00 Transformer foundation models
 * 12:00 - 1:00 Lunch
-* 1:00 - 2:00 Convolutional neural networks
+* 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a14pm_cnn.ipynb">Convolutional neural networks</a>
 * 2:00 - 3:00 Computer vision foundation models
