@@ -17,10 +17,10 @@ Attendees will be introduced to scientific computing using Python. The materials
 
 Leveraging their understanding of fundamentals, attendees will work with the core objects of Pytorch, a Python package for deep learning. Topics will include basic architectures, like multilayer perceptrons, convolutional neural networks, and transformers, as well as model training and optimization.
 
-* 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a13am_word2vec.ipynb">Lexical embeddings for neural networks</a>
+* 10:00 - 11:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a13am_neuralnets.ipynb">Introduction to neural networks</a>
 * 11:00 - 12:00 Introduction to pytorch
 * 12:00 - 1:00 Lunch
-* 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a13pm_backprop.ipynb">Back-propagation</a>
+* 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a13pm_word2vec.ipynb">Lexical embeddings for neural networks</a>
 * 2:00 - 3:00 Training a deep network in pytorch
 
 # Aug 14: Foundation models
