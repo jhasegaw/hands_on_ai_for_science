@@ -58,7 +58,7 @@ def batch_samples(batch, pad_token_id):
     """
     batch_size = len(batch)
     max_seq_len = max([ len(b) for b in batch ])
-    data = torch.zeros((batch_size, max_seq_len))
+    data = torch.zeros((batch_size, max_seq_len), dtype=torch.int)
     for row in range(batch_size):
         for col in range(max_seq_len):
             if col < len(batch[row]):
@@ -85,7 +85,7 @@ def create_causal_mask(seq_len):
     Returns:
         Boolean mask of shape (1, seq_len, seq_len)
     """
-    alltrue = torch.ones((seq_len,seq_len), dtype=torch.bool)
+    alltrue = torch.ones((1, seq_len,seq_len), dtype=torch.bool)
     mask = torch.tril(alltrue)
     #raise NotImplementedError
     return mask
