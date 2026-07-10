@@ -32,13 +32,7 @@ def build_attention_mask(batch):
         where True indicates positions that participate in Attention
         and False indicates positions that do not (pad tokens)
     """
-    batch_size = len(batch)
-    max_seq_len = max([ len(b) for b in batch ])
-    attention_mask = torch.zeros((batch_size, max_seq_len), dtype=torch.bool)
-    for row in range(batch_size):
-        for token in range(len(batch[row])):
-            attention_mask[row,token] = True
-    #raise NotImplementedError
+    raise NotImplementedError
 
     return attention_mask
 
@@ -59,16 +53,7 @@ def batch_samples(batch, pad_token_id):
     Returns:
         Padded torch.Tensor of shape (batch_size, max_seq_len)
     """
-    batch_size = len(batch)
-    max_seq_len = max([ len(b) for b in batch ])
-    data = torch.zeros((batch_size, max_seq_len), dtype=torch.long)
-    for row in range(batch_size):
-        for col in range(max_seq_len):
-            if col < len(batch[row]):
-                data[row,col] = batch[row][col]
-            else:
-                data[row,col] = pad_token_id
-    #raise NotImplementedError
+    raise NotImplementedError
     
     return data
 
@@ -88,8 +73,6 @@ def create_causal_mask(seq_len):
     Returns:
         Boolean mask of shape (1, seq_len, seq_len)
     """
-    alltrue = torch.ones((1, seq_len,seq_len), dtype=torch.bool)
-    mask = torch.tril(alltrue)
-    #raise NotImplementedError
+    raise NotImplementedError
     return mask
 
