@@ -26,9 +26,10 @@ def convolve2d(image, kernel):
         raise ValueError("Kernel cannot be larger than the input in any dimension.")
 
     response = None
+    response = correlation2d(image, kernel[::-1,::-1])
     # TODO:  Your implementation here
 
-    raise NotImplementedError
+    #raise NotImplementedError
 
     return response
 
@@ -61,8 +62,11 @@ def correlation2d(image, kernel):
     response = None
 
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    response = np.zeros((H-kH+1,W-kW+1))
+    for row in range(H-kH+1):
+        for col in range(W-kW+1):
+            response[row,col] = np.sum(kernel*image[row:row+kH,col:col+kW])
+    #raise NotImplementedError
 
     return response
 
@@ -101,10 +105,17 @@ def detect_blob(image, k=5):
     """
     kernel = None
     positions = None
-
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    kernel = np.zeros((k,k))
+    radius = (k-1)//2
+    center = (k-1)//2
+    for row in range(k):
+        for col in range(k):
+            if (row-center)**2 + (col-center)**2 <= radius**2:
+                kernel[row,col] = 1
+    kernel /= np.sum(kernel)
+    positions = detect_positions(image, kernel)
+    #raise NotImplementedError
 
     return kernel, positions
 
@@ -125,8 +136,10 @@ def detect_bar(image, k=7):
     positions = None
 
     # TODO:  Your implementation here
-
-    raise NotImplementedError
-
+    #raise NotImplementedError
+    kernel = np.zeros((k,k))
+    center = (k-1)//2
+    kernel[:,center] = 1/k
+    positions = detect_positions(image, kernel)
     return kernel, positions
 
