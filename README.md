@@ -11,7 +11,7 @@ Attendees will be introduced to scientific computing using Python. The materials
 * 11:00 - 12:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12am_containers.ipynb">Loops, lists, tuples, and dictionaries</a>
 * 12:00 - 1:00 Lunch
 * 1:00 - 2:00 <a href="https://github.com/jhasegaw/hands_on_ai_for_science/blob/main/lectures/a12pm_numpy.ipynb">Numpy and Matplotlib</a>
-* 2:00 - 3:00 Scipy
+* 2:00 - 3:00 Other useful modules
 
 # Aug 13: Architectures
 
