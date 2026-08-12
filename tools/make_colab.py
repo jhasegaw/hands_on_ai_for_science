@@ -80,6 +80,88 @@ def defined_funcs(mod):
     return re.findall(r"^def\s+(\w+)", body, re.M)
 
 
+def split_module(mod):
+    """Split a module into (header, [(function_name, source), ...]).
+
+    The header is everything above the first `def` -- imports and any module
+    docstring -- which has to run before any of the functions.
+    """
+    body = open(os.path.join(LEC, mod + ".py")).read().rstrip("\n")
+    starts = [m.start() for m in re.finditer(r"^def\s+\w+", body, re.M)]
+    if not starts:
+        return body, []
+    header = body[:starts[0]].rstrip("\n")
+    pieces = []
+    for a, b in zip(starts, starts[1:] + [len(body)]):
+        chunk = body[a:b].rstrip("\n")
+        pieces.append((re.match(r"def\s+(\w+)", chunk).group(1), chunk))
+    return header, pieces
+
+
+def call_anchor(texts, fname):
+    """Index of the first transformed code cell that needs `fname` to exist.
+
+    Anchoring on the TRANSFORMED text matters: `help(a12pm_hw2)` names only the
+    module in the original, but strip_module_refs expands it into
+    `help(load_and_clean)`, which needs the function defined.  Any bare mention
+    counts, not just a call -- `help(f)` fails just as loudly as `f()`.
+
+    Import lines are skipped: `from a14pm_hw1 import convolve2d` names the
+    function but is not where the lesson asks students to write it.
+    """
+    pat = re.compile(r"\b%s\b" % fname)
+    for i, text in texts:
+        for line in text.split("\n"):
+            if re.match(r"\s*(import|from)\s", line):
+                continue
+            if pat.search(line):
+                return i
+    return None
+
+
+def group_by_anchor(texts, mod):
+    """Map {anchor_cell_index: [function sources]} for an editable module.
+
+    Each group lands just above the cell that first uses those functions, so a
+    student meets the placeholder where the lesson actually asks for it rather
+    than all at once at the top.  Functions that are never called directly (the
+    helpers other functions lean on) ride along with the earliest group, which
+    keeps every definition ahead of its first caller.
+    """
+    header, pieces = split_module(mod)
+    anchors = {f: call_anchor(texts, f) for f, _ in pieces}
+    known = sorted({a for a in anchors.values() if a is not None})
+    if not known:
+        return None                      # never called -> keep as one block
+    for f in anchors:
+        if anchors[f] is None:
+            anchors[f] = known[0]
+    groups = {}
+    for fname, source in pieces:         # source order is preserved
+        groups.setdefault(anchors[fname], []).append((fname, source))
+    return header, groups
+
+
+def your_turn_cells(mod, fnames, sources, header, nbformat_minor, idx):
+    """Markdown signpost + editable code cell for one group of functions."""
+    names = ", ".join("`%s`" % f for f in fnames)
+    it = "them" if len(fnames) > 1 else "it"
+    blurb = ("### \u270d\ufe0f Your turn: write %s\n\n"
+             "**This is where you write code.**  Fill %s in below, then run this cell "
+             "(Shift+Enter).  The cells underneath use %s, so come back and re-run this "
+             "cell every time you change %s." % (names, it, it, it))
+    body = "\n\n".join(sources)
+    if header:
+        body = header + "\n\n" + body
+    md = {"cell_type": "markdown", "metadata": {}, "source": src(blurb)}
+    code = {"cell_type": "code", "execution_count": None, "metadata": {},
+            "outputs": [], "source": src(body)}
+    if nbformat_minor >= 5:
+        md["id"] = "yourturn-md-%s-%d" % (mod.replace("_", "-"), idx)
+        code["id"] = "yourturn-code-%s-%d" % (mod.replace("_", "-"), idx)
+    return [md, code]
+
+
 def def_cells(mod, nbformat_minor):
     """A markdown header + a code cell holding the module's full source."""
     body = open(os.path.join(LEC, mod + ".py")).read().rstrip("\n")
@@ -152,7 +234,11 @@ def strip_module_refs(text, mods, funcs_by_mod):
         if drop:
             continue
         for m in mods:
-            line = re.sub(r"\b%s\." % m, "", line)
+            # (?!py\b) so a filename in a string -- 'a12pm_hw2.py' -- is left alone.
+            # Without it the module prefix is stripped out of the middle of the
+            # string and the notebook's environment check looks for a file
+            # called 'py'.
+            line = re.sub(r"\b%s\.(?!py\b)" % m, "", line)
         out.append(line)
 
     text = "\n".join(out)
@@ -249,7 +335,8 @@ def main():
                 rebuilt.append(c)
             nb["cells"] = rebuilt
 
-        # first cell that mentions any of the modules -> definitions go just before it
+        # Helper modules go in one block before the first mention.  Editable modules
+        # are split so each placeholder sits where the lesson asks for it.
         first = None
         for i, c in enumerate(nb["cells"]):
             if c["cell_type"] == "code" and any(m in "".join(c["source"]) for m in mods):
@@ -258,6 +345,34 @@ def main():
         if first is None:
             print("  !! %s: no module use found" % nb_name)
             continue
+
+        # Pass 1: transform every code cell, so anchors are computed against the
+        # text students will actually see (help(module) becomes help(function),
+        # qualified calls lose their prefix, and so on).
+        preview = []
+        for i, c in enumerate(nb["cells"]):
+            if c["cell_type"] != "code":
+                continue
+            t = fix_code(strip_module_refs("".join(c["source"]), mods, funcs))
+            if t.strip():
+                preview.append((i, t))
+
+        # {cell index: [cells to insert above it]}
+        placements = {}
+        whole_block = []          # modules that stay as a single block at `first`
+        for m in mods:
+            grouped = group_by_anchor(preview, m) if m in EDITABLE else None
+            if grouped is None:
+                whole_block.append(m)
+                continue
+            header, groups = grouped
+            for n, anchor in enumerate(sorted(groups)):
+                pairs = groups[anchor]
+                placements.setdefault(anchor, []).extend(
+                    your_turn_cells(m, [f for f, _ in pairs], [t for _, t in pairs],
+                                    header if n == 0 else "", minor, n))
+            print("     %-14s split into %d placeholder(s) at cell(s) %s"
+                  % (m, len(groups), sorted(groups)))
 
         # first cell that mentions a data file -> the data cell goes just before it,
         # so the notebook's own environment check sees the files present
@@ -273,8 +388,10 @@ def main():
         for i, c in enumerate(nb["cells"]):
             if i == first_data:
                 cells.extend(data_cells(nb_name, minor))
+            if i in placements:
+                cells.extend(placements[i])
             if i == first:
-                for m in mods:
+                for m in whole_block:
                     cells.extend(def_cells(m, minor))
             c = dict(c)
             text = "".join(c["source"])
