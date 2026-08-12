@@ -29,7 +29,10 @@ def convolve2d(image, kernel):
 
     # TODO:  Your implementation here
 
-    raise NotImplementedError
+    kernel_flip = np.rot90(kernel, 2)
+    response = correlation2d(image, kernel_flip)
+
+    # raise NotImplementedError
 
     return response
 
@@ -62,8 +65,16 @@ def correlation2d(image, kernel):
     response = None
 
     # TODO:  Your implementation here
+    H_out = H - kH + 1
+    W_out = W - kW + 1
 
-    raise NotImplementedError
+    response = np.zeros((H_out, W_out))
+
+    for i in range(0, H_out):
+        for j in range(0, W_out):
+            response[i,j]=np.dot(image[i:i+kH, j:j+kW].flatten(), kernel.flatten())
+
+    # raise NotImplementedError
 
     return response
 
@@ -79,8 +90,18 @@ def detect_blob(image, k=5):
     kernel = None
     positions = None
     # TODO:  Your implementation here
+    kernel = np.zeros((k,k))
+    radius = k//2
+    center = k//2
+    Y, X = np.ogrid[:k, :k]
+    dist_from_center = np.sqrt((X - center)**2 + (Y - center)**2)
+    mask = dist_from_center <= radius
+    kernel[mask]=1.0
+    kernel = kernel/np.sum(kernel)
+    response = convolve2d(image, kernel)
+    positions = detect_positions(response)
 
-    raise NotImplementedError
+    # raise NotImplementedError
 
     return kernel, positions
 
@@ -93,8 +114,7 @@ def detect_bar(image, k=7):
     positions = None
 
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    # raise NotImplementedError
     center = k//2
     kernel = np.zeros((k,k))
     kernel[:, center]=1.0
@@ -110,8 +130,8 @@ def detect_positions(feature_map):
     Identifies coordinates where the response is the highest
     """
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    positions = np.array([[0,0]])
+    # raise NotImplementedError
     positions = np.argmax(feature_map)
     positions = np.unravel_index(positions, feature_map.shape)
     positions = np.array([list(positions)])
@@ -131,8 +151,7 @@ def detect_bar_gradient(image, scale=2):
     positions = None
 
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    # raise NotImplementedError
 
     # Define a standard 3x3 Horizontal Derivative Sobel filter
     kernel = np.array([[-1, 0, 1],[-scale, 0, scale], [-1, 0, 1]])
@@ -160,8 +179,7 @@ def train_classifier(images, labels, epochs=100, lr=0.01):
     """
 
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    # raise NotImplementedError
 
     # 1. Initialization
     # Initialize a 3x3 kernel with small random values
@@ -216,8 +234,7 @@ def predict(image, kernel, threshold=0.5):
     Uses a trained kernel to recognize if a pattern is present.
     """
     # TODO:  Your implementation here
-
-    raise NotImplementedError
+    # raise NotImplementedError
 
     max_response = None
     # 1. Convolve image with learned kernel

@@ -40,15 +40,7 @@ def initialize(data, dim):
     @return:
     embedding - dict mapping from words (strings) to numpy arrays of dimension=dim.
     '''
-    N = len(set(data))
-    theta = np.linspace(0,2*np.pi,N, endpoint=False)
-    embedding = {}
-    for t in range(len(data)):
-        if data[t] not in embedding:
-            embedding[data[t]] = np.random.randn(dim)
-            embedding[data[t]][0] = np.cos(theta[len(embedding)-1])
-            embedding[data[t]][1] = np.sin(theta[len(embedding)-1])
-    return embedding
+    raise RuntimeError("You need to write this part!")
 
 def gradient(embedding, data, t, d=2, k=10):
     '''
@@ -64,16 +56,7 @@ def gradient(embedding, data, t, d=2, k=10):
     @return:
     g (numpy array) - loss gradients with respect to embedding of data[t]
     '''
-    vt = embedding[data[t]]
-    g = np.zeros(len(vt))
-    for c in range(-d,d+1):
-        if c != 0 and t+c >= 0 and t+c < len(data):
-            vc = embedding[data[t+c]]
-            g -= (1-sigma(np.dot(vt,vc)))*vc
-            for i in range(k):
-                vi = embedding[np.random.choice(data)]
-                g += sigma(np.dot(vt,vi))*vi/k
-    return g
+    raise RuntimeError("You need to write this part!")
 
 def sgd(embedding, data, learning_rate, num_iters, d=2, k=10):
     '''
@@ -90,10 +73,6 @@ def sgd(embedding, data, learning_rate, num_iters, d=2, k=10):
     @return:
     embedding - the updated embeddings
     '''
-    for i in range(num_iters):
-        t = np.random.choice(len(data))
-        g = gradient(embedding, data, t, d, k)
-        embedding[data[t]] -= learning_rate * g
-    return embedding
+    raise RuntimeError("You need to write this part!")
     
 
