@@ -1,3 +1,11 @@
+# ----------------------------------------------------------------------------
+# UNVERIFIED SOLUTION
+#
+# Written for the workshop -- this is NOT the course author's original.
+# It reproduces the expected output published in the notebook, but it has not
+# been reviewed by whoever designed the assignment.  Treat it as a reference
+# for a TA, not as an answer key.  See solutions/README.md.
+# ----------------------------------------------------------------------------
 def words2characters(words):
     """
     This function converts a list of words into a list of characters.
