@@ -1,0 +1,21 @@
+# Hands-On AI for Science -- Python dependencies.
+#
+# With Anaconda (the recommended install, see lectures/a12am_python.ipynb),
+# numpy/scipy/pandas/matplotlib/scikit-learn/jupyter are already present;
+# only the last four packages below need installing:
+#
+#     pip install torch transformers torchvision umap-learn
+#
+# On a bare Python (no Anaconda):  pip install -r requirements.txt
+
+numpy
+scipy
+pandas
+matplotlib
+scikit-learn
+jupyter
+tqdm
+torch
+transformers
+torchvision
+umap-learn
