@@ -21,7 +21,7 @@ def load_and_clean(path):
 
     Hints: .str.lower(), .str.strip(), pd.to_numeric(..., errors='coerce')
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def to_feature_matrix(df, feature_cols, label_col):
@@ -43,7 +43,7 @@ def to_feature_matrix(df, feature_cols, label_col):
 
     Hints: df.dropna(subset=...), .to_numpy()
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def group_means(df, by, value):
@@ -59,4 +59,4 @@ def group_means(df, by, value):
     means (Series): the mean of `value` for each level of `by`, indexed by
       the levels of `by` -- i.e., the result of df.groupby(by)[value].mean()
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")

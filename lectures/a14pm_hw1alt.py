@@ -32,7 +32,7 @@ def embed_images(model, processor, images, batch_size=32):
     Check: your output should reproduce the shipped image_embeddings.npy
     (generated with exactly this recipe -- see make_image_embeddings.py).
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def color_histogram(images, bins=8):
@@ -54,7 +54,7 @@ def color_histogram(images, bins=8):
 
     Hint: np.histogram(im[:, :, c], bins=bins, range=(0, 256))[0]
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def probe(X, y, groups=None):
@@ -80,4 +80,4 @@ def probe(X, y, groups=None):
     @return:
     acc (float): mean cross-validated accuracy
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")

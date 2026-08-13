@@ -22,7 +22,7 @@ def fit_polynomial(x, y, degree):
     Hints: np.stack([...], axis=1) builds the design matrix;
     np.linalg.lstsq returns a 4-tuple, and you want its first element.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def train_test_error(x, y, degree, split):
@@ -43,7 +43,7 @@ def train_test_error(x, y, degree, split):
     train_mse (float): mean-squared error on the training points
     test_mse (float): mean-squared error on the test points
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def find_best_degree(x, y, degrees):
@@ -61,7 +61,7 @@ def find_best_degree(x, y, degrees):
     @return:
     best (int): the degree with the smallest test error
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def honest_vs_leaky(X, y):
@@ -90,4 +90,4 @@ def honest_vs_leaky(X, y):
     Hint: np.corrcoef(X[:, j], y)[0, 1] is the correlation of feature j
     with the labels; np.argsort(np.abs(r))[-20:] gives the top 20.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")

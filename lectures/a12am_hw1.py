@@ -7,5 +7,5 @@ def arithmetic(x, y):
     isinstance(y,str)   return x+y         return str(x)+y
     isinstance(y,float) return x*int(y)    return x*y
     """
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 

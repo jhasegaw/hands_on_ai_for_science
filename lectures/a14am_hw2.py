@@ -34,7 +34,7 @@ def embed_sequences(model, tokenizer, seqs, batch_size=16):
     (which was generated with exactly this recipe -- see
     make_protein_embeddings.py).
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def composition_baseline(seqs):
@@ -54,7 +54,7 @@ def composition_baseline(seqs):
     X (ndarray, shape (len(seqs), 20)): rows of frequencies, in
       AMINO_ACIDS order
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def probe(X, y, groups=None):
@@ -79,4 +79,4 @@ def probe(X, y, groups=None):
     @return:
     acc (float): mean cross-validated accuracy
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")

@@ -23,7 +23,7 @@ def grouped_split(X, y, groups, test_size=0.2):
     Hint: next(GroupShuffleSplit(...).split(X, y, groups)) yields the two
     index arrays.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def learning_curve(X, y, sizes):
@@ -48,7 +48,7 @@ def learning_curve(X, y, sizes):
     @return:
     accs (list of float), same length as sizes
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def check_duplicates(X, threshold=0.998):
@@ -75,4 +75,4 @@ def check_duplicates(X, threshold=0.998):
     Hint: squareform(pdist(X, 'cosine')) gives distances;
     np.triu_indices(n, 1) walks each pair once.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")

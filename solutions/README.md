@@ -2,8 +2,7 @@
 
 Reference implementations for the homework modules that attendees write themselves.
 The copies in `lectures/` are starter code: each function has its signature and docstring,
-with the body replaced by `raise NotImplementedError` or
-`raise RuntimeError("You need to write this part!")`.
+with the body replaced by `raise NotImplementedError("You need to write this part!")`.
 
 **Files ending in `_unverified.py` are not the course author's work.** See Provenance below
 before relying on one.

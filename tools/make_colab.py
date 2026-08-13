@@ -250,18 +250,22 @@ def strip_module_refs(text, mods, funcs_by_mod):
 
 
 PROSE = [
-    (r"open up the file `(\w+)\.py` from the file listing in one of your browser tabs",
-     "edit the function definitions in the code cell above"),
+    # The Colab copies have no files to open, and the placeholders are now spread
+    # through the notebook, so directional wording ("above"/"below") is unreliable.
+    # Point at the signpost instead -- it is unambiguous wherever the cell sits.
+    (r"open (?:up )?the file `(\w+)\.py` from the file listing in one of your browser tabs"
+     r"(,? delete the line that says [^,]+,? and fill in your own code)?\.?",
+     "find the **\u270d\ufe0f Your turn** cell and fill in the functions there."),
     (r"go to your browser window that includes a file listing, and click on `(\w+)\.py`\.\s*"
      r"That should open a text editor, where you can edit the file\.",
-     "scroll up to the code cell holding the function definitions and edit it there."),
+     "find the **\u270d\ufe0f Your turn** cell and edit the functions there."),
     (r"[Ii]n (?:the file )?[`]{1,3}(\w+)\.py[`]{1,3},? (solve|the)",
-     lambda m: "In the definitions cell above, %s" % m.group(2)),
-    (r"[`]{1,3}submitted\.py[`]{1,3}", "the definitions cell above"),
-    (r"Solutions go in `(\w+)\.py`", "Solutions go in the definitions cell above"),
+     lambda m: "In the **\u270d\ufe0f Your turn** cell, %s" % m.group(2)),
+    (r"[`]{1,3}submitted\.py[`]{1,3}", "the **\u270d\ufe0f Your turn** cell"),
+    (r"Solutions go in `(\w+)\.py`", "Solutions go in the **\u270d\ufe0f Your turn** cell"),
     (r"### Functions in `(\w+)\.py`", "### Functions to write"),
     (r"## Functions in `(\w+)\.py`", "## Functions to write"),
-    (r"the attached file `(\w+)\.py`", "the definitions cell above"),
+    (r"the attached file `(\w+)\.py`", "the **\u270d\ufe0f Your turn** cell"),
     (r"the provided synthetic generator in `(\w+)\.py`", "the provided synthetic generator above"),
 ]
 

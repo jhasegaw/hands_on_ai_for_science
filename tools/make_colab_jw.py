@@ -56,10 +56,10 @@ PROSE = [
     (r"[Ff]our functions in `(\w+)\.py`", "Four functions, defined in the code cell below"),
     (r"[Tt]hree functions in `(\w+)\.py`", "Three functions, defined in the code cell below"),
     (r"functions in `(\w+)\.py`", "functions in the definitions cell below"),
-    (r"As (?:before|always): open the file, (?:replace|delete)(?: each| the)? `raise RuntimeError`"
-     r"[^.]*\.",
+    (r"As (?:before|always): open the file, (?:replace|delete)(?: each| the)? "
+     r"`raise (?:RuntimeError|NotImplementedError)`[^.]*\.",
      "Edit the function definitions in the code cell below: replace each "
-     "`raise RuntimeError` line with your own code, then re-run that cell before "
+     "`raise NotImplementedError` line with your own code, then re-run that cell before "
      "running the checks."),
     (r"open the file `?(\w+)\.py`?", "edit the definitions cell below"),
 ]
