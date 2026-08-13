@@ -5,7 +5,7 @@ Local notebooks are read-only inputs; nothing under lectures/*.ipynb is modified
 Each output inlines the local .py modules as ordinary code cells and rewrites
 every call site from `module.func(...)` to `func(...)`.
 """
-import json, os, re, sys
+import io, json, os, re, sys, tokenize
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEC = os.path.join(ROOT, "lectures")
@@ -98,24 +98,42 @@ def split_module(mod):
     return header, pieces
 
 
+def code_names(text):
+    """Identifiers actually used as code in a cell.
+
+    Tokenising rather than regex-matching matters: a neural-nets lecture is full
+    of the words "initialize" and "gradient" in comments and prose, and matching
+    those put a word2vec homework placeholder into a lecture that never uses it.
+    Comments and string literals cannot produce a NAME token, so they drop out.
+    """
+    safe = "\n".join("pass" if re.match(r"\s*[!%]", l) else l for l in text.split("\n"))
+    names = set()
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(safe).readline):
+            if tok.type == tokenize.NAME:
+                names.add(tok.string)
+    except (tokenize.TokenError, IndentationError, SyntaxError):
+        # unparseable cell: fall back to a word match rather than losing the anchor
+        names.update(re.findall(r"\b\w+\b", safe))
+    return names
+
+
 def call_anchor(texts, fname):
     """Index of the first transformed code cell that needs `fname` to exist.
 
     Anchoring on the TRANSFORMED text matters: `help(a12pm_hw2)` names only the
     module in the original, but strip_module_refs expands it into
-    `help(load_and_clean)`, which needs the function defined.  Any bare mention
-    counts, not just a call -- `help(f)` fails just as loudly as `f()`.
+    `help(load_and_clean)`, which needs the function defined.  Any use as an
+    identifier counts, not just a call -- `help(f)` fails just as loudly as `f()`.
 
     Import lines are skipped: `from a14pm_hw1 import convolve2d` names the
     function but is not where the lesson asks students to write it.
     """
-    pat = re.compile(r"\b%s\b" % fname)
     for i, text in texts:
-        for line in text.split("\n"):
-            if re.match(r"\s*(import|from)\s", line):
-                continue
-            if pat.search(line):
-                return i
+        body = "\n".join(l for l in text.split("\n")
+                          if not re.match(r"\s*(import|from)\s", l))
+        if fname in code_names(body):
+            return i
     return None
 
 
@@ -367,6 +385,13 @@ def main():
         for m in mods:
             grouped = group_by_anchor(preview, m) if m in EDITABLE else None
             if grouped is None:
+                if m in EDITABLE:
+                    # Imported but never used -- a13am_neuralnets imports a13pm_hw1
+                    # (the afternoon homework) and never calls it.  Inlining it would
+                    # put a "your turn" assignment in a lecture that never needs it.
+                    # The import itself is already stripped, so emit nothing.
+                    print("     %-14s imported but never used -> no placeholder" % m)
+                    continue
                 whole_block.append(m)
                 continue
             header, groups = grouped
