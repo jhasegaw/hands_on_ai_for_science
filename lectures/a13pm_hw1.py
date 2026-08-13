@@ -40,7 +40,7 @@ def initialize(data, dim):
     @return:
     embedding - dict mapping from words (strings) to numpy arrays of dimension=dim.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("you need to write this!")
 
 def gradient(embedding, data, t, d=2, k=10):
     '''
@@ -56,7 +56,7 @@ def gradient(embedding, data, t, d=2, k=10):
     @return:
     g (numpy array) - loss gradients with respect to embedding of data[t]
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this!")
 
 def sgd(embedding, data, learning_rate, num_iters, d=2, k=10):
     '''
@@ -73,6 +73,6 @@ def sgd(embedding, data, learning_rate, num_iters, d=2, k=10):
     @return:
     embedding - the updated embeddings
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this!")
     
 
