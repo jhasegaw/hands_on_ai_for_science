@@ -160,10 +160,14 @@ def main():
         minor = nb.get("nbformat_minor", 0)
         funcs = {m: defined_funcs(m) for m in mods}
 
+        # scan CLEANED code text, so the setup cell's 'aXXxx_hwY.py' file-list
+        # strings (removed in the Colab copy) don't hoist the definitions to the top
+        cleaned = ["".join(c["source"]) if c["cell_type"] != "code"
+                   else fix_code(nb_name, "".join(c["source"])) for c in nb["cells"]]
         first = None
         if mods:
             for i, c in enumerate(nb["cells"]):
-                if c["cell_type"] == "code" and any(m in "".join(c["source"]) for m in mods):
+                if c["cell_type"] == "code" and any(m in cleaned[i] for m in mods):
                     first = i
                     break
 
