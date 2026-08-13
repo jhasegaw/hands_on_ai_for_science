@@ -1,3 +1,14 @@
+# ----------------------------------------------------------------------------
+# UNVERIFIED SOLUTION
+#
+# Written for the workshop -- this is NOT the course author's original.
+# It reproduces the expected output published in the notebook, but it has not
+# been reviewed by whoever designed the assignment.  Treat it as a reference
+# for a TA, not as an answer key.  See solutions/README.md.
+#
+# Additionally: verified only against the examples in the docstrings below.
+# It has NOT been checked by training the transformer end to end.
+# ----------------------------------------------------------------------------
 '''
 This is the module you'll submit to the autograder.
 
