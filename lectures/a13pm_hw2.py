@@ -24,7 +24,7 @@ def nearest_neighbors(embeddings, query, k=5):
     pairwise distances; squareform turns them into an (n, n) matrix;
     np.argsort orders them.  Remember to remove the query index.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def project_2d(embeddings, method="pca"):
@@ -43,7 +43,7 @@ def project_2d(embeddings, method="pca"):
     fit_transform.  For "umap": import umap and use
     umap.UMAP(n_components=2, random_state=0).fit_transform.
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def embedding_rsa(embeddings, reference_sim):
@@ -66,7 +66,7 @@ def embedding_rsa(embeddings, reference_sim):
     @return:
     r (float): Spearman correlation between the two distance structures
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def linear_probe(X, y, groups=None):
@@ -88,4 +88,4 @@ def linear_probe(X, y, groups=None):
     @return:
     acc (float): mean cross-validated accuracy
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")

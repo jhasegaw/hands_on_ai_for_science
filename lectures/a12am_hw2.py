@@ -13,7 +13,7 @@ def words2characters(words):
     example, if words==['hello', 1.234, True], then characters should be
     ['h', 'e', 'l', 'l', 'o', '1', '.', '2', '3', '4', 'T', 'r', 'u', 'e']
     """
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
 
 
 def next_birthday(date, birthdays):
@@ -29,7 +29,7 @@ def next_birthday(date, birthdays):
     birthday - the next day, after given date, on which somebody has a birthday
     list_of_names - list of all people with birthdays on that date
     '''
-    raise RuntimeError("You need to write this part!")
+    raise NotImplementedError("You need to write this part!")
     
 
 
