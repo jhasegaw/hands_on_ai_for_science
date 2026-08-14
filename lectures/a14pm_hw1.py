@@ -25,7 +25,7 @@ def convolve2d(image, kernel):
     if kH > H or kW > W:
         raise ValueError("Kernel cannot be larger than the input in any dimension.")
 
-    response = None
+    response = np.zeros((H-kH+1, W-kW+1))
 
     # TODO:  Your implementation here
 
@@ -59,7 +59,7 @@ def correlation2d(image, kernel):
     if kH > H or kW > W:
         raise ValueError("Kernel cannot be larger than the input in any dimension.")
 
-    response = None
+    response = np.zeros((H-kH+1, W-kW+1))
 
     # TODO:  Your implementation here
 
@@ -77,6 +77,7 @@ def detect_blob(image, k=5):
     You can use as blob radius**2 = (center)**2
     """
     kernel = None
+
     positions = None
     # TODO:  Your implementation here
 
@@ -90,18 +91,12 @@ def detect_bar(image, k=7):
     All values in filter should be 0 except central vertical line
     """
     kernel = None
+
     positions = None
 
     # TODO:  Your implementation here
 
     raise NotImplementedError
-    center = k//2
-    kernel = np.zeros((k,k))
-    kernel[:, center]=1.0
-    kernel = kernel/np.sum(kernel)
-
-    response = convolve2d(image, kernel)
-    positions = detect_positions(response)
 
     return kernel, positions
 
@@ -111,7 +106,7 @@ def detect_positions(feature_map):
     """
     # TODO:  Your implementation here
 
-    raise NotImplementedError
+    #raise NotImplementedError
     positions = np.argmax(feature_map)
     positions = np.unravel_index(positions, feature_map.shape)
     positions = np.array([list(positions)])

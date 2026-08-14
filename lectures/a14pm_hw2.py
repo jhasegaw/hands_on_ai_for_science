@@ -25,7 +25,6 @@ def grouped_split(X, y, groups, test_size=0.2):
     '''
     raise NotImplementedError("You need to write this part!")
 
-
 def learning_curve(X, y, sizes):
     '''
     Is performance still climbing with more data, or has it plateaued?

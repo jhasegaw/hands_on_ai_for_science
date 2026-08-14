@@ -32,7 +32,21 @@ def build_attention_mask(batch):
         where True indicates positions that participate in Attention
         and False indicates positions that do not (pad tokens)
     """
-    raise NotImplementedError
+    #raise NotImplementedError
+    max_seq_len = max(len(sequence) for sequence in batch)
+
+    # Start with everything False ("do not attend"), then switch on the
+    # positions that hold real tokens.  Building the mask from the lengths
+    # rather than from the padded tensor means we never have to guess whether
+    # a token that happens to equal pad_token_id is real padding or not.
+    attention_mask = torch.zeros(len(batch), max_seq_len, dtype=torch.bool)
+
+    for row, sequence in enumerate(batch):
+        # The first len(sequence) positions of this row are real tokens; the
+        # rest stay False.  A sequence that is already full length simply
+        # turns the whole row True.
+        attention_mask[row, :len(sequence)] = True
+
 
     return attention_mask
 
@@ -53,8 +67,13 @@ def batch_samples(batch, pad_token_id):
     Returns:
         Padded torch.Tensor of shape (batch_size, max_seq_len)
     """
-    raise NotImplementedError
-    
+    #raise NotImplementedError
+    max_seq_len = max(len(sequence) for sequence in batch)
+    data = torch.full((len(batch), max_seq_len), pad_token_id, dtype=torch.long)
+    for rownumber, sequence in enumerate(batch):
+        for columnnumber, item in enumerate(sequence):
+            data[rownumber, columnnumber] = item
+
     return data
 
 def create_causal_mask(seq_len):
